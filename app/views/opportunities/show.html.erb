@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @opportunity.client.name %></h1>
+
+<table>
+  <tr>
+    <td>Software</td>
+    <td><%= @opportunity.software %></td>
+  </tr>
+  <tr>
+    <td>Semi</td>
+    <td><%= @opportunity.semi %></td>
+  </tr>
+  <tr>
+    <td>Production</td>
+    <td><%= @opportunity.production %></td>
+  </tr>
+  <tr>
+    <td>Ads</td>
+    <td><%= @opportunity.ads %></td>
+  </tr>
+  <tr>
+    <td>Other</td>
+    <td><%= @opportunity.other %></td>
+  </tr>
+  <tr>
+    <td>Total margin</td>
+    <td><strong><%= @opportunity.total_margin %></strong></td>
+  </tr>
+  <tr>
+    <td>Total revenue</td>
+    <td><strong><%= @opportunity.total_revenue %></strong></td>
+  </tr>
+  <tr>
+    <td>Weighted margin</td>
+    <td><strong><%= @opportunity.total_margin %></strong></td>
+  </tr>
+  <tr>
+    <td>Weighted revenue</td>
+    <td><strong><%= @opportunity.total_revenue %></strong></td>
+  </tr>
+</table>
+
+<br />
+
+<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
+<%= link_to 'Back', opportunities_path %>

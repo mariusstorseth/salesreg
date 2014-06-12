@@ -1,0 +1,41 @@
+<h1>Listing sales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Seller</th>
+      <th>Software</th>
+      <th>Semi</th>
+      <th>Production</th>
+      <th>Ads</th>
+      <th>Other</th>
+      <th>Margin</th>
+      <th>Revenue</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sales.each do |sale| %>
+      <tr>
+        <td><%= sale.client.name %></td>
+        <td><%= sale.user.full_name %></td>
+        <td><%= sale.software %></td>
+        <td><%= sale.semi %></td>
+        <td><%= sale.production %></td>
+        <td><%= sale.ads %></td>
+        <td><%= sale.other %></td>
+        <td><strong><%= sale.margin %></strong></td>
+        <td><strong><%= sale.revenue %></strong></td>
+        <td><%= link_to 'Show', sale %></td>
+        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sale', new_sale_path %>

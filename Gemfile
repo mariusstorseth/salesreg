@@ -41,3 +41,5 @@ gem 'spring',        group: :development
 group :development, :test do
   gem 'jazz_hands'
 end
+
+gem 'simple_form'

@@ -1,0 +1,49 @@
+<%= simple_form_for(@sale) do |f| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+      <ul>
+      <% @sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :client_id %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :user_id %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :software %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :semi %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :production %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :ads %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :other %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

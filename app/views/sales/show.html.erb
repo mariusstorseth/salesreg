@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @sale.client.name %></h1>
+
+<table>
+  <tr>
+    <td>Software</td>
+    <td><%= @sale.software %></td>
+  </tr>
+  <tr>
+    <td>Semi</td>
+    <td><%= @sale.semi %></td>
+  </tr>
+  <tr>
+    <td>Production</td>
+    <td><%= @sale.production %></td>
+  </tr>
+  <tr>
+    <td>Ads</td>
+    <td><%= @sale.ads %></td>
+  </tr>
+  <tr>
+    <td>Other</td>
+    <td><%= @sale.other %></td>
+  </tr>
+  <tr>
+    <td>Margin</td>
+    <td><strong><%= @sale.margin %></strong></td>
+  </tr>
+  <tr>
+    <td>Revenue</td>
+    <td><strong><%= @sale.revenue %></strong></td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_sale_path(@sale) %> |
+<%= link_to 'Back', sales_path %>
