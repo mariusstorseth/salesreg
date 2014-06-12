@@ -11,12 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612173139) do
+ActiveRecord::Schema.define(version: 20140612180608) do
 
   create_table "budgets", force: true do |t|
     t.integer  "user_id"
     t.integer  "amount"
     t.string   "month"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "clients", force: true do |t|
+    t.string   "name"
+    t.string   "invoice_address_street"
+    t.integer  "invoice_address_zip"
+    t.string   "invoice_address_city"
+    t.string   "invoice_address_country"
+    t.string   "contact_name"
+    t.string   "contact_email"
+    t.integer  "contact_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

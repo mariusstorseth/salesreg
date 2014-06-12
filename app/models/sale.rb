@@ -1,6 +1,10 @@
 class Sale < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :client
+
+  validates :client_id, :user_id, presence: true
+  validates :software, :semi, :production, :ads, :other, numericality: { only_integer: true }
 
   before_save :calculate_coverage_ratios!, :calculate_product_margins!, 
               :calculate_revenue!, :calculate_margin!
