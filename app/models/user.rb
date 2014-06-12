@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :office_id, :username, presence: true
   validates :email, :username, uniqueness: true
-  validates :first_name, :last_name, :username, format: { with: /\A[a-zA-Z]+\z/, }
-  validates :email, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9\.-]+\.[A-Za-z]+\Z/ }
+  validates :first_name, :last_name, :username, format: { with: /\A[a-zA-ZÆæÅåØø]+\z/, }
+  validates :email, format: { with: /\A[A-Za-zÆæÅåØø0-9._%+-]+@[A-Za-zÆæÅåØø0-9\.-]+\.[A-Za-zÆæÅåØø]+\Z/ }
   validates :office_id, numericality: { only_integer: true }
 
 
