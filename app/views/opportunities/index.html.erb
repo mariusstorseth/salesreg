@@ -36,7 +36,7 @@
         <td><strong><%= opportunity.weighted_margin %></strong></td>
         <td><strong><%= opportunity.weighted_revenue %></strong></td>
         <td><%= opportunity.closing_date %></td>
-        <td><%= opportunity.probability %></td>
+        <td><%= opportunity.probability %>%</td>
         <td><%= link_to 'Show', opportunity %></td>
         <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
         <td><%= link_to 'Destroy', opportunity, method: :delete, data: { confirm: 'Are you sure?' } %></td>

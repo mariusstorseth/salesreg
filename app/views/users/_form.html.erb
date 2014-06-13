@@ -1,4 +1,4 @@
-<%= simple_form_for(@user) do |f| %>
+<%= simple_form_for(@user, :html => { :multipart => true }) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -13,6 +13,10 @@
 
   <div class="form-inputs">
     <%= f.input :first_name %>
+  </div>
+  <br />
+  <div class="form-inputs">
+  <%= f.file_field :avatar %>
   </div>
   <br />
   <div class="form-inputs">

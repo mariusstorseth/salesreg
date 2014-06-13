@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates :email, format: { with: /\A[A-Za-z-9._%+-]+@[A-Za-z-9\.-]+\.[A-Za-z]+\Z/ }
   validates :office_id, numericality: { only_integer: true }
 
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   def full_name
     first_name + " " + last_name

@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 <h1><%= @user.full_name %></h1>
 
+<% if @user.avatar? %>
+  <%= image_tag @user.avatar.url(:medium) %>
+<% end %>
+
 <br />
 <h3>Sales</h3>
 <hr />
