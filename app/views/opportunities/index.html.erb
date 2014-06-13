@@ -25,7 +25,7 @@
     <% @opportunities.each do |opportunity| %>
       <tr>
         <td><%= opportunity.client.name %></td>
-        <td><%= opportunity.user.full_name %></td>
+        <td><%= empl(opportunity.user) %></td>
         <td><%= opportunity.software %></td>
         <td><%= opportunity.semi %></td>
         <td><%= opportunity.production %></td>

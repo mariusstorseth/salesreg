@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+<h1><%= @client.name %></h1>
+
+
+<h3>Sales</h3>
+<table>
+  <thead>
+    <th>Seller</th>
+    <th>Margin</th>
+    <th>Revenue</th>
+    <th>Date</th>
+  </thead>
+  <tbody>
+    <% @client.sales.each do |sale| %>
+      <tr>
+        <td><%= empl(sale.user) %></td>
+        <td><%= sale.margin %></td>
+        <td><%= sale.revenue %></td>
+        <td><%= sale.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Opportunities</h3>
+<table>
+  <thead>
+    <th>Seller</th>
+    <th>Margin</th>
+    <th>Revenue</th>
+    <th>Probability</th>
+    <th>Closing date</th>
+  </thead>
+  <tbody>
+    <% @client.opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= empl(opportunity.user) %></td>
+        <td><%= opportunity.total_margin %></td>
+        <td><%= opportunity.total_revenue %></td>
+        <td><%= opportunity.probability %></td>
+        <td><%= opportunity.closing_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>

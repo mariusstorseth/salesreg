@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :opportunities
   resources :users
   resources :offices
+  resources :budgets
+  resources :clients
 
   # Example resource route with options:
   #   resources :products do

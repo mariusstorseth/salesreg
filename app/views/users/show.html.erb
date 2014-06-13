@@ -1,4 +1,56 @@
 <p id="notice"><%= notice %></p>
+<h1><%= @user.full_name %></h1>
+
+<br />
+<h3>Sales</h3>
+<hr />
+<table>
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Margin</th>
+      <th>Revenue</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.sales.each do |sale| %>
+    <tr>
+      <td><%= sale.client.name %></td>
+      <td><%= sale.margin %></td>
+      <td><%= sale.revenue %></td>
+      <td><%= sale.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+<h3>Opportunities</h3>
+<hr />
+<table>
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Margin</th>
+      <th>Revenue</th>
+      <th>Closing date</th>
+      <th>Probability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.opportunities.each do |opportunity| %>
+    <tr>
+      <td><%= opportunity.client.name %></td>
+      <td><%= opportunity.total_margin %></td>
+      <td><%= opportunity.total_revenue %></td>
+      <td><%= opportunity.closing_date %></td>
+      <td><%= opportunity.probability %>%</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

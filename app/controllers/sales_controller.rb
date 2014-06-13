@@ -42,7 +42,7 @@ class SalesController < ApplicationController
   def update
     respond_to do |format|
       if @sale.update(sale_params)
-        format.html { redirect_to @sales, notice: 'Sale was successfully updated.' }
+        format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
         format.json { render :show, status: :ok, location: @sale }
       else
         format.html { render :edit }

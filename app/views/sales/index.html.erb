@@ -5,6 +5,7 @@
     <tr>
       <th>Client</th>
       <th>Seller</th>
+      <th>Date</th>
       <th>Software</th>
       <th>Semi</th>
       <th>Production</th>
@@ -20,7 +21,8 @@
     <% @sales.each do |sale| %>
       <tr>
         <td><%= sale.client.name %></td>
-        <td><%= sale.user.full_name %></td>
+        <td><%= empl(sale.user) %></td>
+        <td><%= sale.created_at %></td>
         <td><%= sale.software %></td>
         <td><%= sale.semi %></td>
         <td><%= sale.production %></td>

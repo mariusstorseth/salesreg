@@ -1,0 +1,33 @@
+<%= simple_form_for(@client) do |f| %>
+  <% if @client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% @client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :invoice_address_street %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :invoice_address_zip %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :invoice_address_city %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

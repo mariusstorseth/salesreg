@@ -28,7 +28,7 @@
   </div>
   <br />
   <div class="form-inputs">
-    <%= f.input :office_id %>
+    <%= f.input :office_id, collection: Office.all, label_method: :name %>
   </div>
   <br />
   <div class="actions">
