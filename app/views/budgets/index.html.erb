@@ -1,5 +1,21 @@
 <h1>Listing budgets</h1>
-
+  <%= form_tag(budgets_path, :method => "get", id: "search-form") do %>
+    <%= select_tag :search, options_for_select([ 
+      "January", 
+      "February", 
+      "March", 
+      "April", 
+      "May", 
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+      ], (params[:search] or Time.now.strftime("%B"))) %>
+    <%= submit_tag "Search" %>
+  <% end %>
 <table>
   <thead>
     <tr>
@@ -11,7 +27,7 @@
   </thead>
 
   <tbody>
-    <% @budgets.each do |budget| %>
+    <% @search_budgets.each do |budget| %>
       <tr>
         <td><%= empl(budget.user) %></td>
         <td><%= budget.month %></td>
@@ -24,4 +40,5 @@
   </tbody>
 </table>
 <br>
+
 <%= link_to 'New Budget', new_budget_path %>

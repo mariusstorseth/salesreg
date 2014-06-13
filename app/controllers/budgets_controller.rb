@@ -5,6 +5,12 @@ class BudgetsController < ApplicationController
   # GET /budgets.json
   def index
     @budgets = Budget.all
+    
+    if params[:search]
+      @search_budgets = Budget.search(params[:search]).order("created_at DESC")
+    else
+      @search_budgets = Budget.search(Time.now.strftime("%B")).order('created_at DESC')
+    end
   end
 
   # GET /budgets/1
