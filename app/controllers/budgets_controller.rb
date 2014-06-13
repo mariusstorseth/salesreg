@@ -6,6 +6,8 @@ class BudgetsController < ApplicationController
   def index
     @budgets = Budget.all
     @budget = Budget.new
+    @users = User.all.order("office_id ASC")
+    @offices = Office.all
   end
 
   # GET /budgets/1

@@ -33,6 +33,10 @@ module BudgetsHelper
       end
     end
   end
+
+  def seller_current_budget(seller)
+    return seller.budgets.search(Time.now.strftime("%B")).sum(:amount)
+  end
 end
 
 

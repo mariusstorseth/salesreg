@@ -58,5 +58,9 @@ class Opportunity < ActiveRecord::Base
     self.weighted_revenue = total_revenue * probability / 100
     self.weighted_margin = total_margin * probability / 100
   end
+  
+  def self.this_month
+    where("created_at > ?", Time.now.at_beginning_of_month) 
+  end
 
 end

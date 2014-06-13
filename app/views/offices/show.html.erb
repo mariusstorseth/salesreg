@@ -21,13 +21,13 @@
     <% @office.users.each do |user| %>
       <tr>
         <td><%= empl(user) %></td>
-        <td><%= user.budgets.sum(:amount) %></td>
-        <td><%= user.sales.sum(:margin) %></td>
-        <td><%= user.sales.sum(:revenue) %></td>
-        <td><%= user.opportunities.sum(:total_margin) %></td>
-        <td><%= user.opportunities.sum(:total_revenue) %></td>
-        <td><%= user.opportunities.sum(:total_margin) + user.sales.sum(:margin) %></td>
-        <td><%= user.opportunities.sum(:total_revenue) + user.sales.sum(:revenue) %></td>
+        <td><%= seller_current_budget(user) %></td>
+        <td><%= user.sales.this_month.sum(:margin) %></td>
+        <td><%= user.sales.this_month.sum(:revenue) %></td>
+        <td><%= user.opportunities.this_month.sum(:total_margin) %></td>
+        <td><%= user.opportunities.this_month.sum(:total_revenue) %></td>
+        <td><%= user.opportunities.this_month.sum(:total_margin) + user.sales.this_month.sum(:margin) %></td>
+        <td><%= user.opportunities.this_month.sum(:total_revenue) + user.sales.this_month.sum(:revenue) %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -35,7 +35,7 @@
     <% end %>
     <tr>
       <td><strong>Total</strong></td>
-      <td><strong><%= office_budget(@office) %></strong></td>
+      <td><strong><%= office_current_budget(@office) %></strong></td>
       <td><strong><%= office_margin(@office) %></strong></td>
       <td><strong><%= office_revenue(@office) %></strong></td>
       <td><strong><%= office_pipeline_margin(@office) %></strong></td>

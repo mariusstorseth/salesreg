@@ -19,7 +19,7 @@
     <% @offices.each do |office| %>
       <tr>
         <td><%= link_to office.name, office_path(office) %></td>
-        <td><%= office_budget(office) %></td>
+        <td><%= office_current_budget(office) %></td>
         <td><%= office_margin(office) %></td>
         <td><%= office_revenue(office) %></td>
         <td><%= office_pipeline_margin(office) %></td>

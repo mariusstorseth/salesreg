@@ -50,4 +50,8 @@ class Sale < ActiveRecord::Base
      self.margin = sum
   end
 
+  def self.this_month
+    where("created_at > ?", Time.now.at_beginning_of_month) 
+  end
+
 end

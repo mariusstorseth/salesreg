@@ -4,7 +4,7 @@ module OfficesHelper
     users = User.all.where(:office => office)
     sum = 0
     users.each do |user|
-      sum += user.sales.sum(:margin)
+      sum += user.sales.this_month.sum(:margin)
     end
     return sum
   end
@@ -13,16 +13,33 @@ module OfficesHelper
     users = User.all.where(:office => office)
     sum = 0
     users.each do |user|
-      sum += user.sales.sum(:revenue)
+      sum += user.sales.this_month.sum(:revenue)
     end
     return sum
   end
 
-  def office_budget(office)
+  def office_current_budget(office)
     users = User.all.where(:office => office)
     sum = 0
     users.each do |user|
-      sum += user.budgets.sum(:amount)
+      sum += user.budgets.search(Time.now.strftime("%B")).sum(:amount)
+    end
+    return sum
+  end
+
+  def office_month_budget(office, month)
+    if params[:search]
+      users = User.all.where(:office => office)
+      sum = 0
+      users.each do |user|
+        sum += user.budgets.search(month).sum(:amount)
+      end
+    else
+      users = User.all.where(:office => office)
+      sum = 0
+      users.each do |user|
+        sum += user.budgets.search(Time.now.strftime("%B")).sum(:amount)
+      end
     end
     return sum
   end
@@ -31,7 +48,7 @@ module OfficesHelper
     users = User.all.where(:office => office)
     sum = 0
     users.each do |user|
-      sum += user.opportunities.sum(:weighted_margin)
+      sum += user.opportunities.this_month.sum(:weighted_margin)
     end
     return sum
   end
@@ -40,7 +57,7 @@ module OfficesHelper
     users = User.all.where(:office => office)
     sum = 0
     users.each do |user|
-      sum += user.opportunities.sum(:weighted_revenue)
+      sum += user.opportunities.this_month.sum(:weighted_revenue)
     end
     return sum
   end

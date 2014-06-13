@@ -27,7 +27,7 @@
     </tr>
   </thead>
   <tbody>
-    <% User.all.each do |user| %>
+    <% @users.each do |user| %>
     <tr>
       <td><%= empl(user) %></td>
       <td><%= user.office.name %></td>
@@ -67,3 +67,29 @@
   </tbody>
 </table>
 <br />
+
+<table>
+  <thead>
+    <tr>
+      <th>Office</th>
+      <th>Budget</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @offices.each do |office| %>
+    <tr>
+      <td><%= office.name %></td>
+      <td><%= office_month_budget(office, params[:search]) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
