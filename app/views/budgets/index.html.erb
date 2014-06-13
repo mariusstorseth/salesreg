@@ -41,4 +41,22 @@
 </table>
 <br>
 
+<table>
+  <thead>
+    <tr>
+      <th>Seller</th>
+      <th>Budget</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% User.all.each do |user| %>
+    <tr>
+      <td><%= empl(user) %></td>
+      <td><%= seller_budget(user, params[:search]) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+
 <%= link_to 'New Budget', new_budget_path %>
