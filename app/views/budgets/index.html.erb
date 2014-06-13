@@ -52,7 +52,34 @@
     <% User.all.each do |user| %>
     <tr>
       <td><%= empl(user) %></td>
+      <% if seller_budget(user, params[:search]) == 0 %>
+      <td>
+        <%= simple_form_for(@budget) do |f| %>
+          <% if @budget.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@budget.errors.count, "error") %> prohibited this budget from being saved:</h2>
+
+              <ul>
+              <% @budget.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+            <%= f.hidden_field :user_id, :value => user.id %>
+            <% if params[:search] %>
+              <%= f.hidden_field :month, :value => params[:search] %>
+            <% else %>
+              <%= f.hidden_field :month, :value => Time.now.strftime("%B") %>
+            <% end %>
+            <%= f.input_field :amount %>
+            <%= f.submit %>
+          </div>
+        <% end %>
+      </td>
+      <% else %>
       <td><%= seller_budget(user, params[:search]) %></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

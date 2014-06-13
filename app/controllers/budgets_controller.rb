@@ -5,7 +5,8 @@ class BudgetsController < ApplicationController
   # GET /budgets.json
   def index
     @budgets = Budget.all
-    
+    @budget = Budget.new
+
     if params[:search]
       @search_budgets = Budget.search(params[:search]).order("created_at DESC")
     else
@@ -34,7 +35,7 @@ class BudgetsController < ApplicationController
 
     respond_to do |format|
       if @budget.save
-        format.html { redirect_to @budget, notice: 'Budget was successfully created.' }
+        format.html { redirect_to budgets_path, notice: 'Budget was successfully created.' }
         format.json { render :show, status: :created, location: @budget }
       else
         format.html { render :new }

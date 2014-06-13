@@ -1,10 +1,18 @@
 module BudgetsHelper
 
   def seller_budget(seller, month)
-    if seller.budgets.search(month).sum(:amount) != 0
-      return seller.budgets.search(month).sum(:amount)
+    if params[:search]
+      if seller.budgets.search(month).sum(:amount) != 0
+        return seller.budgets.search(month).limit(1).sum(:amount)
+      else
+        return 0
+      end
     else
-      return link_to 'Add', new_budget_path
+      if seller.budgets.search(month).sum(:amount) != 0
+        return seller.budgets.search(Time.now.strftime("%B")).limit(1).sum(:amount)
+      else
+        return 0
+      end
     end
   end
 end
