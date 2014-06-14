@@ -1,0 +1,10 @@
+<h1>Change your password</h1>
+
+<%= simple_form_for @user, url: password_reset_path(@user.password_reset_token), html: { method: :patch } do |f| %>
+
+  <%= f.input :password %>
+  <br />
+  <%= f.input :password_confirmation %>
+  <br />
+  <%= submit_tag "Change password" %>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614083627) do
+ActiveRecord::Schema.define(version: 20140614140029) do
 
   create_table "budgets", force: true do |t|
     t.integer  "user_id"
@@ -112,8 +112,10 @@ ActiveRecord::Schema.define(version: 20140614083627) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "password_digest"
+    t.string   "password_reset_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", using: :btree
 
 end
