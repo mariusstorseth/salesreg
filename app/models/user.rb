@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
+  before_create { generate_token(:auth_token) }
   before_save :downcase_email
 
   def downcase_email
@@ -24,6 +25,12 @@ class User < ActiveRecord::Base
 
   def generate_password_reset_token!
     update_attributes(:password_reset_token => SecureRandom.urlsafe_base64(48))
+  end
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
 
   def full_name

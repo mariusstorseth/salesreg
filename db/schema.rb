@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614140029) do
+ActiveRecord::Schema.define(version: 20140614204048) do
 
   create_table "budgets", force: true do |t|
     t.integer  "user_id"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20140614140029) do
     t.datetime "avatar_updated_at"
     t.string   "password_digest"
     t.string   "password_reset_token"
+    t.string   "auth_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
