@@ -32,6 +32,11 @@
     <td><strong><%= @sale.revenue %></strong></td>
   </tr>
 </table>
-
+<br />
+<% if @sale.file? %>
+  <%= link_to "Show attachment", @sale.file.url %>
+<% end %>
+<br />
+<br />
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>

@@ -10,6 +10,9 @@ class Sale < ActiveRecord::Base
   before_save :calculate_coverage_ratios!, :calculate_product_margins!, 
               :calculate_revenue!, :calculate_margin!
 
+  has_attached_file :file, styles: {thumbnail: "60x60#"}
+  validates_attachment :file, content_type: { content_type: "application/pdf" }
+
   def calculate_coverage_ratios!
     self.software_rate ||= 80
     self.semi_rate ||= 70
