@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614204048) do
+ActiveRecord::Schema.define(version: 20140614211050) do
 
   create_table "budgets", force: true do |t|
     t.integer  "user_id"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20140614204048) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "budgets", ["month"], name: "index_budgets_on_month", using: :btree
+  add_index "budgets", ["user_id"], name: "index_budgets_on_user_id", using: :btree
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -69,6 +72,9 @@ ActiveRecord::Schema.define(version: 20140614204048) do
     t.datetime "updated_at"
   end
 
+  add_index "opportunities", ["client_id"], name: "index_opportunities_on_client_id", using: :btree
+  add_index "opportunities", ["user_id"], name: "index_opportunities_on_user_id", using: :btree
+
   create_table "sales", force: true do |t|
     t.integer  "client_id"
     t.integer  "user_id"
@@ -98,6 +104,9 @@ ActiveRecord::Schema.define(version: 20140614204048) do
     t.datetime "file_updated_at"
   end
 
+  add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
+  add_index "sales", ["user_id"], name: "index_sales_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.integer  "office_id"
     t.string   "first_name"
@@ -117,6 +126,7 @@ ActiveRecord::Schema.define(version: 20140614204048) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["office_id"], name: "index_users_on_office_id", using: :btree
   add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", using: :btree
 
 end
