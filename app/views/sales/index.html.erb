@@ -1,43 +1,50 @@
-<h1>Listing sales</h1>
+<div class="page-header">
+  <div class="row">
+    <div class="col-md-6">
+      <h2><%= t('sales.title') %></h2>
+    </div>
+    <div class="col-md-6">
+      <h2><%= link_to t('sales.new_sale'), new_sale_path, :class => "btn btn-primary pull-right" %><h2>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Client</th>
-      <th>Seller</th>
-      <th>Date</th>
-      <th>Software</th>
-      <th>Semi</th>
-      <th>Production</th>
-      <th>Ads</th>
-      <th>Other</th>
-      <th>Margin</th>
-      <th>Revenue</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sales.each do |sale| %>
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
       <tr>
-        <td><%= sale.client.name %></td>
-        <td><%= empl(sale.user) %></td>
-        <td><%= sale.created_at %></td>
-        <td><%= sale.software %></td>
-        <td><%= sale.semi %></td>
-        <td><%= sale.production %></td>
-        <td><%= sale.ads %></td>
-        <td><%= sale.other %></td>
-        <td><strong><%= sale.margin %></strong></td>
-        <td><strong><%= sale.revenue %></strong></td>
-        <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
-        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th><%= t('sales.client') %></th>
+        <th><%= t('sales.seller') %></th>
+        <th><%= t('sales.date') %></th>
+        <th><%= t('sales.software') %></th>
+        <th><%= t('sales.semi') %></th>
+        <th><%= t('sales.production') %></th>
+        <th><%= t('sales.ads') %></th>
+        <th><%= t('sales.other') %></th>
+        <th><%= t('sales.margin') %></th>
+        <th><%= t('sales.revenue') %></th>
+        <th colspan="3">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Sale', new_sale_path %>
+    <tbody>
+      <% @sales.each do |sale| %>
+        <tr>
+          <td><%= sale.client.name %></td>
+          <td><%= empl(sale.user) %></td>
+          <td><%= sale.created_at %></td>
+          <td><%= sale.software %></td>
+          <td><%= sale.semi %></td>
+          <td><%= sale.production %></td>
+          <td><%= sale.ads %></td>
+          <td><%= sale.other %></td>
+          <td><strong><%= sale.margin %></strong></td>
+          <td><strong><%= sale.revenue %></strong></td>
+          <td><%= link_to 'Show', sale %></td>
+          <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+          <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

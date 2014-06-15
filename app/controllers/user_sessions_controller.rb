@@ -1,6 +1,10 @@
 class UserSessionsController < ApplicationController
 
   def new
+    if cookies[:auth_token]
+      flash[:info] = "You are already signed in."
+      redirect_to root_path
+    end
   end
 
   def create
@@ -14,13 +18,14 @@ class UserSessionsController < ApplicationController
       flash[:success] = "Logged in successfully!"
       redirect_to sales_path
     else
-      flash[:error] = "Wrong email or password!"
+      flash[:warning] = "Wrong email or password!"
       render action: 'new'
     end
   end
 
   def destroy
     cookies.delete(:auth_token)
-    redirect_to root_path, notice: "you have been logged out."
+    flash[:info] = "you have been logged out."
+    redirect_to root_path
   end
 end

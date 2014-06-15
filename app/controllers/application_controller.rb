@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  @offices = Office.all
+
   private
   def logged_in?
     current_user
@@ -18,7 +20,17 @@ class ApplicationController < ActionController::Base
     if current_user
       true
     else
-      redirect_to new_user_session_path, notice: "You must be signed in to access this page."
+      flash[:warning] = "You must be signed in to access this page."
+      redirect_to login_path
+    end
+  end
+
+  def require_guest
+    if current_user
+      flash[:info] = "You are already signed in."
+      redirect_to root_path
+    else
+      true
     end
   end
 end

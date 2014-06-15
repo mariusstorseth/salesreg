@@ -1,4 +1,5 @@
 class PasswordResetsController < ApplicationController
+  before_action :require_guest
 
   def new
   end
@@ -9,9 +10,9 @@ class PasswordResetsController < ApplicationController
       user.generate_password_reset_token!
       Notifier.password_reset(user).deliver
       flash[:success] = "Password reset instructions sent! Please check your email"
-      redirect_to new_user_session_path, success: "Password updated!"
+      redirect_to new_user_session_path
     else
-      flash.now[:notice] = "Email address not found"
+      flash.now[:warning] = "Email address not found"
       render action: 'new'
     end
   end
@@ -31,7 +32,7 @@ class PasswordResetsController < ApplicationController
       cookies[:auth_token] = @user.auth_token
       redirect_to root_path
     else
-      flash.now[:notice] = "Password reset token not found"
+      flash.now[:danger] = "Password reset token not found"
       render action: 'edit'
     end
   end

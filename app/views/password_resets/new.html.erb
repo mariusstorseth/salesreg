@@ -1,8 +1,20 @@
-<h1>Reset password</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="page-header">
+      <h2>Reset password</h2>
+    </div>
 
-<%= form_tag password_resets_path do %>
-  <%= label_tag :email %>
-  <br />
-  <%= text_field_tag :email %>
-  <%= submit_tag %>
-<% end %>
+    <%= form_tag password_resets_path, :class => "form-horizontal" do %>
+      <div class="form-group">
+        <%= label_tag :email, "Email address", :class => "col-md-3 control-label" %>
+        <div class="col-md-9">
+          <%= text_field_tag :email, nil, placeholder: "Email", :class => "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-offset-3 col-md-9">
+        <%= submit_tag "Send password reset instructions", :class => "btn btn-primary" %>
+        <%= link_to "Sign in", login_path, :class => "pull-right" %>
+      </div>
+    <% end %>
+  </div>
+</div>

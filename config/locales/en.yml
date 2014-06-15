@@ -20,4 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  sales:
+    title: "Sales"
+    new_sale: "New sale"
+    client: "Client"
+    seller: "Seller"
+    date: "Date"
+    software: "Software"
+    semi: "Semi"
+    production: "Production"
+    ads: "Ads"
+    other: "Other"
+    margin: "Margin"
+    revenue: "Revenue"
+  flash:
+    wrong_login: "Wrong email or password"
