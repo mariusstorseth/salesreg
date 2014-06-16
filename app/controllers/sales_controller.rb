@@ -6,6 +6,8 @@ class SalesController < ApplicationController
   # GET /sales.json
   def index
     @sales = Sale.all
+    @user_sales = current_user.sales.all
+    @sale = current_user.sales.new
   end
 
   # GET /sales/1
@@ -25,7 +27,7 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
-    @sale = Sale.new(sale_params)
+    @sale = current_user.sales.new(sale_params)
 
     respond_to do |format|
       if @sale.save

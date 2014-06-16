@@ -44,4 +44,5 @@
 <br />
 
 <%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
-<%= link_to 'Back', opportunities_path %>
+<%= link_to 'Back', opportunities_path %> |
+<%= link_to 'Destroy', @opportunity, method: :delete, data: { confirm: 'Are you sure?' } %>

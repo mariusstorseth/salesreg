@@ -4,7 +4,9 @@
       <h2><%= t('sales.title') %></h2>
     </div>
     <div class="col-md-6">
-      <h2><%= link_to t('sales.new_sale'), new_sale_path, :class => "btn btn-primary pull-right" %><h2>
+      <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#newSale">
+        New sale
+      </button>
     </div>
   </div>
 </div>
@@ -14,37 +16,115 @@
     <thead>
       <tr>
         <th><%= t('sales.client') %></th>
-        <th><%= t('sales.seller') %></th>
         <th><%= t('sales.date') %></th>
-        <th><%= t('sales.software') %></th>
-        <th><%= t('sales.semi') %></th>
-        <th><%= t('sales.production') %></th>
-        <th><%= t('sales.ads') %></th>
-        <th><%= t('sales.other') %></th>
         <th><%= t('sales.margin') %></th>
         <th><%= t('sales.revenue') %></th>
-        <th colspan="3">Actions</th>
+        <th><%= t('sales.state') %></th>
       </tr>
     </thead>
 
     <tbody>
-      <% @sales.each do |sale| %>
+      <% @user_sales.each do |sale| %>
         <tr>
-          <td><%= sale.client.name %></td>
-          <td><%= empl(sale.user) %></td>
-          <td><%= sale.created_at %></td>
-          <td><%= sale.software %></td>
-          <td><%= sale.semi %></td>
-          <td><%= sale.production %></td>
-          <td><%= sale.ads %></td>
-          <td><%= sale.other %></td>
-          <td><strong><%= sale.margin %></strong></td>
-          <td><strong><%= sale.revenue %></strong></td>
-          <td><%= link_to 'Show', sale %></td>
-          <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
-          <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to sale.client.name, client_path(sale.client) %></td>
+          <td><%= link_to sale.created_at.strftime("%b %d, %Y"), sale_path(sale) %></td>
+          <td><strong><%= number_to_currency(sale.margin, unit: "", precision: 0, delimiter: " ") %></strong></td>
+          <td><strong><%= number_to_currency(sale.revenue, unit: "", precision: 0, delimiter: " ") %></strong></td>
+          <td></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+</div>
+
+
+
+
+
+<div class="modal fade" id="newSale" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New sale</h4>
+      </div>
+      <div class="modal-body">
+        <script>
+            $(document).ready(function() { $(".select-search").select2(); });
+        </script>
+        <%= simple_form_for(@sale, :html => { :multipart => true, :class => "form-horizontal" }) do |f| %>
+          <% if @sale.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+              <ul>
+              <% @sale.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :client_id, "Client", :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :client_id, collection: Client.all, label_method: :name, :class => "form-control select-search" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :software, :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :software, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :semi, :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :semi, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :production, :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :production, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :ads, :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :ads, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :other, :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :other, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :description, :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.input_field :description, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :file, "Attachment", :class => "col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.file_field :file, :class => "form-control" %>
+            </div>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

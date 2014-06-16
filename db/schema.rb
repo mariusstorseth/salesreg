@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614211050) do
+ActiveRecord::Schema.define(version: 20140616212643) do
 
   create_table "budgets", force: true do |t|
     t.integer  "user_id"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20140614211050) do
     t.integer  "other_rate"
     t.integer  "margin"
     t.integer  "revenue"
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "file_file_name"
