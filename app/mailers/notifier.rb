@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default_url_options[:host] = "localhost:3000"
+  default_url_options[:host] = "http://stark-meadow-2659.herokuapp.com/"
   default from: "noreply@solidmediagroup.com"
 
   def password_reset(user)
