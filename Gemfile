@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
+gem 'rails_12factor'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 # Use mysql as the database for Active Record
-gem 'mysql2'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -39,7 +41,14 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'jazz_hands', group: [:development, :test]
+group :development, :test do
+  gem 'jazz_hands'
+  gem 'mysql2'
+end
+
+group :production do
+  gem 'pg'
+end
 
 gem 'simple_form'
 
