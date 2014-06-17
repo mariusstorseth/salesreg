@@ -7,6 +7,7 @@ class OpportunitiesController < ApplicationController
   def index
     @opportunities = Opportunity.all
     @user_opportunities = current_user.opportunities.all
+    @opportunity = current_user.opportunities.new
   end
 
   # GET /opportunities/1
@@ -16,7 +17,7 @@ class OpportunitiesController < ApplicationController
 
   # GET /opportunities/new
   def new
-    @opportunity = Opportunity.new
+    @opportunity = current_user.opportunities.new
   end
 
   # GET /opportunities/1/edit
@@ -26,7 +27,7 @@ class OpportunitiesController < ApplicationController
   # POST /opportunities
   # POST /opportunities.json
   def create
-    @opportunity = Opportunity.new(opportunity_params)
+    @opportunity = current_user.opportunities.new(opportunity_params)
 
     respond_to do |format|
       if @opportunity.save

@@ -1,48 +1,166 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="page-header">
+      <h2><%= link_to @opportunity.client.name, client_path(@opportunity.client) %> <small class="pull-right"><%= @opportunity.closing_date.strftime("%b %d, %Y") %></small></h2>
+    </div>
+    <p class="lead">This opportunity is in <%= empl(@opportunity.user) + "'s" %> pipeline and will hopefully be closed <%= time_ago_in_words(@opportunity.closing_date) %> ago.</p>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Revenue</th>
+          <th>Coverage rate</th>
+          <th>Margin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @opportunity.software %>
+          <tr>
+            <td>Software</td>
+            <td><%= number_to_currency(@opportunity.software, unit: "", precision: 0, delimiter: " ") %></td>
+            <td><%= @opportunity.software_rate %>%</td>
+            <td><%= number_to_currency(@opportunity.software_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.semi %>
+          <tr>
+            <td>Semi</td>
+            <td><%= number_to_currency(@opportunity.semi, unit: "", precision: 0, delimiter: " ") %></td>
+            <td><%= @opportunity.semi_rate %>%</td>
+            <td><%= number_to_currency(@opportunity.semi_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.production %>
+          <tr>
+            <td>Production</td>
+            <td><%= number_to_currency(@opportunity.production, unit: "", precision: 0, delimiter: " ") %></td>
+            <td><%= @opportunity.production_rate %>%</td>
+            <td><%= number_to_currency(@opportunity.production_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.ads %>
+          <tr>
+            <td>Ads</td>
+            <td><%= number_to_currency(@opportunity.ads, unit: "", precision: 0, delimiter: " ") %></td>
+            <td><%= @opportunity.ads_rate %>%</td>
+            <td><%= number_to_currency(@opportunity.ads_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.other %>
+          <tr>
+            <td>Other</td>
+            <td><%= number_to_currency(@opportunity.other, unit: "", precision: 0, delimiter: " ") %></td>
+            <td><%= @opportunity.other_rate %>%</td>
+            <td><%= number_to_currency(@opportunity.other_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.total_margin %>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong><%= number_to_currency(@opportunity.total_revenue, unit: "", precision: 0, delimiter: " ") %></strong></td>
+            <td><strong><%= @opportunity.total_margin / @opportunity.total_revenue * 100 %>%</strong></td>
+            <td><strong><%= number_to_currency(@opportunity.total_margin, unit: "", precision: 0, delimiter: " ") %></strong></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="col-md-6">
+      <% if @opportunity.user == current_user %>
+        <div class="btn-group">
+          <button class="btn btn-warning" data-toggle="modal" data-target="#editOpportunity">
+            Edit
+          </button>
+          <%= link_to 'Delete', @opportunity, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<h1><%= @opportunity.client.name %></h1>
+<div class="modal fade" id="editOpportunity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit opportunity</h4>
+      </div>
+      <div class="modal-body">
+       <script>
+          $(document).ready(function() { $(".select-search").select2(); });
+      </script>
+      <%= simple_form_for(@opportunity, :html => { :class => "form-horizontal" }) do |f| %>
+        <% if @opportunity.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:</h2>
 
-<table>
-  <tr>
-    <td>Software</td>
-    <td><%= @opportunity.software %></td>
-  </tr>
-  <tr>
-    <td>Semi</td>
-    <td><%= @opportunity.semi %></td>
-  </tr>
-  <tr>
-    <td>Production</td>
-    <td><%= @opportunity.production %></td>
-  </tr>
-  <tr>
-    <td>Ads</td>
-    <td><%= @opportunity.ads %></td>
-  </tr>
-  <tr>
-    <td>Other</td>
-    <td><%= @opportunity.other %></td>
-  </tr>
-  <tr>
-    <td>Total margin</td>
-    <td><strong><%= @opportunity.total_margin %></strong></td>
-  </tr>
-  <tr>
-    <td>Total revenue</td>
-    <td><strong><%= @opportunity.total_revenue %></strong></td>
-  </tr>
-  <tr>
-    <td>Weighted margin</td>
-    <td><strong><%= @opportunity.weighted_margin %></strong></td>
-  </tr>
-  <tr>
-    <td>Weighted revenue</td>
-    <td><strong><%= @opportunity.weighted_revenue %></strong></td>
-  </tr>
-</table>
+            <ul>
+            <% @opportunity.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-<br />
+        <div class="form-group">
+          <%= f.label :client_id, "Client", :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :client_id, collection: Client.all, label_method: :name, :class => "select-search" %>
+          </div>
+        </div>
 
-<%= link_to 'Edit', edit_opportunity_path(@opportunity) %> |
-<%= link_to 'Back', opportunities_path %> |
-<%= link_to 'Destroy', @opportunity, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <div class="form-group">
+          <%= f.label :software, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :software, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :semi, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :semi, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :production, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :production, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :ads, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :ads, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :other, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :other, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :closing_date, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.date_field :closing_date, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :probability, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :probability, :class => "form-control" %>
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

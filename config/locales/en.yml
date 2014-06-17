@@ -34,6 +34,8 @@ en:
     margin: "Margin"
     revenue: "Revenue"
     state: "State"
+    payment_date: "Payment date"
+    commission: "Commission"
   flash:
     wrong_login: "Wrong email or password"
   opportunities:

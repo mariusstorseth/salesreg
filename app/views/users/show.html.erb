@@ -1,60 +1,72 @@
-<p id="notice"><%= notice %></p>
-<h1><%= @user.full_name %></h1>
+<div class="page-header">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>
+        <% if @user.avatar? %>
+          <%= image_tag @user.avatar.url(:thumb), :class => "img-thumbnail" %>
+        <% end %>
+        <%= @user.full_name  %>
+      </h2>
+    </div>
+  </div>
+</div>
 
-<% if @user.avatar? %>
-  <%= image_tag @user.avatar.url(:medium) %>
+<% if !@user.sales.empty? %>
+
+  <h3>Sales</h3>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Date</th>
+          <th>Margin</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.sales.each do |sale| %>
+        <tr>
+          <td><%= link_to sale.client.name, client_path(sale.client) %></td>
+          <td><%= link_to sale.created_at.strftime("%b %d, %Y"), sale_path(sale) %></td>
+          <td><%= number_to_currency(sale.margin, unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(sale.revenue, unit: "", precision: 0, delimiter: " ") %></td>
+        </tr>
+        <% end %>
+     </tbody>
+    </table>
+  </div>
+
 <% end %>
 
-<br />
-<h3>Sales</h3>
-<hr />
-<table>
-  <thead>
-    <tr>
-      <th>Client</th>
-      <th>Margin</th>
-      <th>Revenue</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.sales.each do |sale| %>
-    <tr>
-      <td><%= sale.client.name %></td>
-      <td><%= sale.margin %></td>
-      <td><%= sale.revenue %></td>
-      <td><%= sale.created_at %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<br />
-<h3>Opportunities</h3>
-<hr />
-<table>
-  <thead>
-    <tr>
-      <th>Client</th>
-      <th>Margin</th>
-      <th>Revenue</th>
-      <th>Closing date</th>
-      <th>Probability</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.opportunities.each do |opportunity| %>
-    <tr>
-      <td><%= opportunity.client.name %></td>
-      <td><%= opportunity.total_margin %></td>
-      <td><%= opportunity.total_revenue %></td>
-      <td><%= opportunity.closing_date %></td>
-      <td><%= opportunity.probability %>%</td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if !@user.opportunities.empty? %>
 
-<br />
+  <h3>Pipeline</h3>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Closing date</th>
+          <th>Margin</th>
+          <th>Revenue</th>
+          <th>Probability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.opportunities.each do |opportunity| %>
+        <tr>
+          <td><%= link_to opportunity.client.name, client_path(opportunity.client) %></td>
+          <td><%= link_to opportunity.closing_date.strftime("%b %d, %Y"), opportunity_path(opportunity) %></td>
+          <td><%= number_to_currency(opportunity.total_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(opportunity.total_revenue, unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= opportunity.probability %>%</td>
+        </tr>
+        <% end %>
+     </tbody>
+    </table>
+  </div>
+
+<% end %>

@@ -10,33 +10,30 @@
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-      <th><%= t('offices.title') %></th>
-      <th><%= t('offices.budget') %></th>
-      <th><%= t('offices.current_margin') %></th>
-      <th><%= t('offices.current_revenue') %></th>
-      <th><%= t('offices.pipeline_margin') %></th>
-      <th><%= t('offices.pipeline_revenue') %></th>
-      <th><%= t('offices.estimated_margin') %></th>
-      <th><%= t('offices.estimated_revenue') %></th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @offices.each do |office| %>
-      <tr>
-        <td><%= link_to office.name, office_path(office) %></td>
-        <td><%= number_to_currency(office_current_budget(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(office_margin(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(office_revenue(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(office_pipeline_margin(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(office_pipeline_revenue(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(office_pipeline_margin(office) + office_margin(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(office_pipeline_revenue(office) + office_revenue(office), unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= link_to 'Show', office %></td>
-        <td><%= link_to 'Edit', edit_office_path(office) %></td>
-        <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th><%= t('offices.title') %></th>
+        <th><%= t('offices.budget') %></th>
+        <th><%= t('offices.current_margin') %></th>
+        <th><%= t('offices.current_revenue') %></th>
+        <th><%= t('offices.pipeline_margin') %></th>
+        <th><%= t('offices.pipeline_revenue') %></th>
+        <th><%= t('offices.estimated_margin') %></th>
+        <th><%= t('offices.estimated_revenue') %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @offices.each do |office| %>
+        <tr>
+          <td><%= link_to office.name, office_path(office) %></td>
+          <td><%= number_to_currency(office_current_budget(office), unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(office_margin(office), unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(office_revenue(office), unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(office_pipeline_margin(office), unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(office_pipeline_revenue(office), unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(office_pipeline_margin(office) + office_margin(office), unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(office_pipeline_revenue(office) + office_revenue(office), unit: "", precision: 0, delimiter: " ") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

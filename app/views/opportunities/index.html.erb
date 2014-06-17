@@ -4,7 +4,11 @@
       <h2><%= t('opportunities.title') %></h2>
     </div>
     <div class="col-md-6">
-      <h2><%= link_to t('opportunities.new_opportunity'), new_opportunity_path, :class => "btn btn-primary pull-right" %><h2>
+      <h2>
+        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#newOpportunity">
+          New opportunity
+        </button>
+      </h2>
     </div>
   </div>
 </div>
@@ -38,3 +42,91 @@
     <% end %>
   </tbody>
 </table>
+
+<div class="modal fade" id="newOpportunity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New opportunity</h4>
+      </div>
+      <div class="modal-body">
+       <script>
+          $(document).ready(function() { $(".select-search").select2(); });
+      </script>
+      <%= simple_form_for(@opportunity, :html => { :class => "form-horizontal" }) do |f| %>
+        <% if @opportunity.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:</h2>
+
+            <ul>
+            <% @opportunity.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :client_id, "Client", :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :client_id, collection: Client.all, label_method: :name, :class => "select-search" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :software, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :software, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :semi, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :semi, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :production, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :production, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :ads, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :ads, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :other, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :other, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :closing_date, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.date_field :closing_date, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :probability, :class => "col-md-3 control-label" %>
+          <div class="col-md-9">
+            <%= f.input_field :probability, :class => "form-control" %>
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit "Submit", :class => "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

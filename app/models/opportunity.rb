@@ -3,7 +3,7 @@ class Opportunity < ActiveRecord::Base
   belongs_to :user
   belongs_to :client
 
-  validates :client_id, :user_id, presence: true
+  validates :client_id, :user_id, :closing_date, :probability, presence: true
   validates :software, :semi, :production, :ads, :other, numericality: { only_integer: true },
                                                          allow_blank: true
 
