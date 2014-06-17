@@ -42,13 +42,14 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
-  gem 'jazz_hands'
   gem 'mysql2'
 end
 
 group :production do
   gem 'pg'
 end
+
+gem 'jazz_hands'
 
 gem 'simple_form'
 
