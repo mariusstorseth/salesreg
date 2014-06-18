@@ -18,30 +18,31 @@
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-      <th><%= t('opportunities.client') %></th>
-      <th><%= t('opportunities.closing_date') %></th>
-      <th><%= t('opportunities.total_margin') %></th>
-      <th><%= t('opportunities.total_revenue') %></th>
-      <th><%= t('opportunities.weighted_margin') %></th>
-      <th><%= t('opportunities.weighted_revenue') %></th>
-      <th><%= t('opportunities.probability') %></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @user_opportunities.each do |opportunity| %>
-      <tr>
-        <td><%= link_to opportunity.client.name, client_path(opportunity.client) %></td>
-        <td><%= link_to opportunity.closing_date.strftime("%b %d, %Y"), opportunity_path(opportunity) %></td>
-        <td><%= number_to_currency(opportunity.total_margin, unit: "", precision: 0, delimiter: " ") %></td>
-        <td><%= number_to_currency(opportunity.total_revenue, unit: "", precision: 0, delimiter: " ") %></td>
-        <td><strong><%= number_to_currency(opportunity.weighted_margin, unit: "", precision: 0, delimiter: " ") %></strong></td>
-        <td><strong><%= number_to_currency(opportunity.weighted_revenue, unit: "", precision: 0, delimiter: " ") %></strong></td>
-        <td><%= opportunity.probability %>%</td>
+        <th><%= t('opportunities.client') %></th>
+        <th><%= t('opportunities.closing_date') %></th>
+        <th><%= t('opportunities.total_margin') %></th>
+        <th><%= t('opportunities.total_revenue') %></th>
+        <th><%= t('opportunities.weighted_margin') %></th>
+        <th><%= t('opportunities.weighted_revenue') %></th>
+        <th><%= t('opportunities.probability') %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @user_opportunities.each do |opportunity| %>
+        <tr>
+          <td><%= link_to opportunity.client.name, client_path(opportunity.client) %></td>
+          <td><%= link_to opportunity.closing_date.strftime("%b %d, %Y"), opportunity_path(opportunity) %></td>
+          <td><%= number_to_currency(opportunity.total_margin, unit: "", precision: 0, delimiter: " ") %></td>
+          <td><%= number_to_currency(opportunity.total_revenue, unit: "", precision: 0, delimiter: " ") %></td>
+          <td><strong><%= number_to_currency(opportunity.weighted_margin, unit: "", precision: 0, delimiter: " ") %></strong></td>
+          <td><strong><%= number_to_currency(opportunity.weighted_revenue, unit: "", precision: 0, delimiter: " ") %></strong></td>
+          <td><%= opportunity.probability %>%</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <div class="modal fade" id="newOpportunity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

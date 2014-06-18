@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -41,13 +41,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-group :development, :test do
-  gem 'mysql2'
-end
-
-group :production do
-  gem 'pg'
-end
+gem 'mysql2', group: [:development, :test]
+gem 'pg', group: :production
 
 gem 'jazz_hands'
 

@@ -17,6 +17,7 @@
   <table class="table table-striped table-hover">
     <thead>
       <tr>
+        <th>#</th>
         <th><%= t('sales.client') %></th>
         <th><%= t('sales.date') %></th>
         <th><%= t('sales.margin') %></th>
@@ -30,6 +31,7 @@
     <tbody>
       <% @user_sales.each do |sale| %>
         <tr>
+          <td><%= sale.id %></td>
           <td><%= link_to sale.client.name, client_path(sale.client) %></td>
           <td><%= link_to sale.created_at.strftime("%b %d, %Y"), sale_path(sale) %></td>
           <td><strong><%= number_to_currency(sale.margin, unit: "", precision: 0, delimiter: " ") %></strong></td>

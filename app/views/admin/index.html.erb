@@ -1,0 +1,7 @@
+<%= render 'menu' %>
+
+<ul>
+<% @users.each do |user| %>
+  <li><%= user.full_name %></li>
+<% end %>
+</ul>
