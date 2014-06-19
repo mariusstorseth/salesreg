@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get 'admin/sales', to: 'admin#sales'
   get 'admin/pipelines', to: 'admin#pipelines'
   get 'admin/budgets', to: 'admin#budgets'
-  get 'admin/users', to: 'admin#index'
+  get 'admin/users/(:user_id)', to: 'admin#users', as: 'admin_user'
+  get 'admin/users', to: 'admin#users'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

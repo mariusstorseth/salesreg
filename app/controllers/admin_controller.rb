@@ -1,7 +1,16 @@
 class AdminController < ApplicationController
 
   def index
+  end
+
+  def users
     @users = User.all
+    @user = User.new
+    @offices = Office.all
+
+    if params[:user_id]
+      @user_now = User.find(params[:user_id])
+    end
   end
 
   def budgets
