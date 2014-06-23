@@ -3,7 +3,7 @@
   <div class="col-md-5">
     <div class="list-group">
       <% @users.each do |user| %>
-        <%= link_to user.full_name, admin_user_path(user), :class => [ currentpath(admin_user_path(user)), " list-group-item" ] %>
+        <a href="<%= admin_user_url(user) %>" class="list-group-item <%= currentpath(admin_user_path(user)) %>"><%= user.full_name %><span class="label label-default pull-right"><%= user.office.name %></span></a>
       <% end %>
     </div>
     <button class="btn btn-primary" data-toggle="modal" data-target="#newUser">
@@ -118,6 +118,8 @@
   </div>
 </div>
 
+<% end %>
+
 <div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -191,4 +193,3 @@
     </div>
   </div>
 </div>
-<% end %>

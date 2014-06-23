@@ -28,7 +28,7 @@ module OfficesHelper
   end
 
   def office_month_budget(office, month)
-    if params[:search]
+    if params[:month]
       users = User.all.where(:office => office)
       sum = 0
       users.each do |user|

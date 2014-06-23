@@ -9,8 +9,6 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :office_id, presence: true
   validates :email, uniqueness: true
-  validates :first_name, :last_name, format: { with: /\A[a-zA-ZÆæÅåØø]+\z/, }
-  validates :email, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9\.-]+\.[A-Za-z]+\Z/ }
   validates :office_id, numericality: { only_integer: true }
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"

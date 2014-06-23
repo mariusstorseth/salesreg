@@ -3,6 +3,7 @@
     <div class="page-header">
       <h2><%= link_to @sale.client.name, client_path(@sale.client) %> <small class="pull-right"><%= @sale.created_at.strftime("%b %d, %Y") %></small></h2>
     </div>
+    <%= @sale.calculate_commission %>
     <p class="lead">This order was sold by <%= empl(@sale.user) %> <%= time_ago_in_words(@sale.created_at) %> ago.</p>
     <table class="table table-striped table-hover">
       <thead>

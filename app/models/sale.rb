@@ -53,6 +53,20 @@ class Sale < ActiveRecord::Base
      self.margin = sum
   end
 
+  def calculate_commission
+    calculates_commission = 0
+    
+    if self.user.sales.where("created_at >= ?", self.created_at.at_beginning_of_month).sum(:margin) >= self.user.budgets.where("month >= ?", self.created_at.strftime("%B")).sum(:amount)
+      calculates_commission = margin * 0.4
+    elsif self.user.sales.where("created_at >= ?", self.created_at.at_beginning_of_month).sum(:margin) >= (self.user.budgets.where("month >= ?", self.created_at.strftime("%B")).sum(:amount) * 0.7)
+      calculates_commission = margin * 0.2
+    elsif self.user.sales.where("created_at >= ?", self.created_at.at_beginning_of_month).sum(:margin) < (self.user.budgets.where("month >= ?", self.created_at.strftime("%B")).sum(:amount) * 0.7)
+      calculates_commission = 0
+    end
+
+    return calculates_commission
+  end
+
   def self.this_month
     where("created_at > ?", Time.now.at_beginning_of_month) 
   end
