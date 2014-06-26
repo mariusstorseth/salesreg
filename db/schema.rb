@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619194948) do
+ActiveRecord::Schema.define(version: 20140626173504) do
 
   create_table "budgets", force: true do |t|
     t.integer  "user_id"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20140619194948) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.string   "state"
   end
 
   add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree

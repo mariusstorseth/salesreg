@@ -6,7 +6,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities.json
   def index
     @opportunities = Opportunity.all
-    @user_opportunities = current_user.opportunities.all
+    @user_opportunities = current_user.opportunities.all.all.order("closing_date DESC")
     @opportunity = current_user.opportunities.new
   end
 

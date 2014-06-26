@@ -23,12 +23,29 @@
           <td><%= sale_date(sale) %></td>
           <td><%= currency(sale.margin) %></td>
           <td><%= currency(sale.revenue) %></td>
-          <td><span class="label label-default">Waiting...</span></td>
+          <td><%= show_state(sale) %></td>
           <td>
-            <div class="btn-group btn-group-xs">
-              <a href="#" class="btn btn-primary btn-xs">Approve</a>
-              <a href="#" class="btn btn-danger btn-xs">Decline</a>
-            </div>
+            <% if !sale.state %>
+              <%= simple_form_for(sale, html: { class: "inline-block"}) do |f| %>
+                <%= f.hidden_field :state, :value => "Approved" %>
+                <%= f.submit "Approve", :class => "btn btn-primary btn-xs" %>
+              <% end %>
+              <%= simple_form_for(sale, html: { class: "inline-block"}) do |f| %>
+                <%= f.hidden_field :state, :value => "Declined" %>
+                <%= f.submit "Decline", :class => "btn btn-danger btn-xs" %>
+              <% end %>
+            <% elsif sale.state == "Declined" %>
+              <%= simple_form_for(sale, html: { class: "inline-block"}) do |f| %>
+                <%= f.hidden_field :state, :value => "Approved" %>
+                <%= f.submit "Approve", :class => "btn btn-primary btn-xs" %>
+              <% end %>
+            <% elsif sale.state == "Approved" %>
+              <a href="#" class="btn btn-success btn-xs">Add payment</a>
+              <%= simple_form_for(sale, html: { class: "inline-block"}) do |f| %>
+                <%= f.hidden_field :state, :value => "Declined" %>
+                <%= f.submit "Decline", :class => "btn btn-danger btn-xs" %>
+              <% end %>
+            <% end %>
           </td>
         </tr>
       <% end %>

@@ -36,9 +36,10 @@
       <% if logged_in? %>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="<%= currentpath(opportunities_path) %>"><%= link_to "Pipeline", opportunities_path %></li>
           <li class="<%= currentpath(sales_path) %>"><%= link_to "Sales", sales_path %></li>
+          <li class="<%= currentpath(opportunities_path) %>"><%= link_to "Pipeline", opportunities_path %></li>
           <li class="<%= currentpath(offices_path) %>"><%= link_to "Offices", offices_path %></li>
+          <li class="<%= currentpath(clients_path) %>"><%= link_to "Clients", clients_path %></li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
           <div class="input-group">
@@ -96,7 +97,7 @@
   </div>
   <div class="footer">
     <div class="container">
-      <p>&copy; Solid Media Group 2014</p>
+      <p>&copy; Solid Media Group <%= Time.now.strftime("%Y") %></p>
     </div>
   </div>
 </body>

@@ -6,7 +6,7 @@ class SalesController < ApplicationController
   # GET /sales.json
   def index
     @sales = Sale.all
-    @user_sales = current_user.sales.all
+    @user_sales = current_user.sales.all.order("created_at DESC")
     @sale = current_user.sales.new
   end
 
@@ -45,7 +45,7 @@ class SalesController < ApplicationController
   def update
     respond_to do |format|
       if @sale.update(sale_params)
-        format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Sale was successfully updated.' }
         format.json { render :show, status: :ok, location: @sale }
       else
         format.html { render :edit }
@@ -73,6 +73,6 @@ class SalesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
       params.require(:sale).permit(:user_id, :client_id, :software, :semi, :production, 
-                                    :ads, :other, :description, :file)
+                                    :ads, :other, :description, :file, :state)
     end
 end

@@ -26,7 +26,7 @@ class AdminController < ApplicationController
   end
 
   def sales
-    @sales = Sale.all
+    @sales = Sale.all.all.order("created_at DESC")
   end
 
   def pipelines

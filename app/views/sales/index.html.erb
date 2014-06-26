@@ -22,9 +22,7 @@
         <th><%= t('sales.date') %></th>
         <th><%= t('sales.margin') %></th>
         <th><%= t('sales.revenue') %></th>
-        <th><%= t('sales.commission') %></th>
         <th><%= t('sales.state') %></th>
-        <th><%= t('sales.payment_date') %></th>
       </tr>
     </thead>
 
@@ -36,9 +34,7 @@
           <td><%= link_to sale.created_at.strftime("%b %d, %Y"), sale_path(sale) %></td>
           <td><strong><%= number_to_currency(sale.margin, unit: "", precision: 0, delimiter: " ") %></strong></td>
           <td><strong><%= number_to_currency(sale.revenue, unit: "", precision: 0, delimiter: " ") %></strong></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= show_state(sale) %></td>
         </tr>
       <% end %>
     </tbody>
