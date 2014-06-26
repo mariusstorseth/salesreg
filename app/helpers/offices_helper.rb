@@ -22,24 +22,16 @@ module OfficesHelper
     users = User.all.where(:office => office)
     sum = 0
     users.each do |user|
-      sum += user.budgets.search(Time.now.strftime("%B")).sum(:amount)
+      sum += user.budgets.search(Time.now.strftime("%B"), Time.now.strftime("%Y")).sum(:amount)
     end
     return sum
   end
 
-  def office_month_budget(office, month)
-    if params[:month]
-      users = User.all.where(:office => office)
-      sum = 0
-      users.each do |user|
-        sum += user.budgets.search(month).sum(:amount)
-      end
-    else
-      users = User.all.where(:office => office)
-      sum = 0
-      users.each do |user|
-        sum += user.budgets.search(Time.now.strftime("%B")).sum(:amount)
-      end
+  def office_month_budget(office, month, year)
+    users = User.all.where(:office => office)
+    sum = 0
+    users.each do |user|
+      sum += user.budgets.search(month, year).sum(:amount)
     end
     return sum
   end

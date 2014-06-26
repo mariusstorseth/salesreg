@@ -1,14 +1,14 @@
 module BudgetsHelper
 
-  def seller_budget(seller, month)
-    if params[:search]
-      if seller.budgets.search(month).sum(:amount) != 0
-        return seller.budgets.search(month).limit(1).sum(:amount)
+  def seller_budget(seller, month, year)
+    if params[:commit]
+      if seller.budgets.search(month, year).sum(:amount) != 0
+        return seller.budgets.search(month, year).limit(1).sum(:amount)
       else
         return 0
       end
     else
-      if seller.budgets.search(month).sum(:amount) != 0
+      if seller.budgets.search(month, year).sum(:amount) != 0
         return seller.budgets.search(Time.now.strftime("%B")).limit(1).sum(:amount)
       else
         return 0
@@ -18,24 +18,20 @@ module BudgetsHelper
 
 
 
-  def seller_budget_id(seller, month)
-    if params[:search]
-      if seller.budgets.search(month).sum(:amount) != 0
-        return seller.budgets.search(month).limit(1).sum(:id)
+  def seller_budget_id(seller, month, year)
+    if params[:commit]
+      if seller.budgets.search(month, year).sum(:amount) != 0
+        return seller.budgets.search(month, year).limit(1).sum(:id)
       else
         return 0
       end
     else
-      if seller.budgets.search(month).sum(:amount) != 0
+      if seller.budgets.search(month, year).sum(:amount) != 0
         return seller.budgets.search(Time.now.strftime("%B")).limit(1).sum(:id)
       else
         return 0
       end
     end
-  end
-
-  def seller_current_budget(seller)
-    return seller.budgets.search(Time.now.strftime("%B")).sum(:amount)
   end
 end
 

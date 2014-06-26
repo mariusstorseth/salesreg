@@ -3,14 +3,10 @@
   <%= form_tag(admin_budgets_path, :method => "get", id: "search-form") do %>
   <div class="row">
     <div class="col-md-2">
-      <% offices_array = @offices.map { |office| [office.name] } %>
-      <%= select_tag :office, options_for_select(offices_array), :class => 'form-control' %>
-    </div>
-    <div class="col-md-2">
       <%= select_tag :month, options_for_select(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ], (params[:month] or Time.now.strftime("%B"))), :class => 'form-control' %>
     </div>
     <div class="col-md-1">
-      <%= select_tag :year, options_for_select([Time.now.strftime("%Y"), (Time.now + 34164000).strftime("%Y")]), :class => 'form-control' %>
+      <%= select_tag :year, options_for_select([Time.now.strftime("%Y"), (Time.now + 34164000).strftime("%Y")], (params[:year] or Time.now.strftime("%Y"))), :class => 'form-control' %>
     </div>
     <div class="col-md-1">
       <%= submit_tag "Filter", :class => "btn btn-default" %>
@@ -40,7 +36,7 @@
           <tr>
             <td><%= empl(user) %></td>
             <td><%= user.office.name %></td>
-            <% if seller_budget(user, params[:month]) == 0 %>
+            <% if seller_budget(user, params[:month], params[:year]) == 0 %>
             <td>
               <%= simple_form_for(@budget) do |f| %>
                 <% if @budget.errors.any? %>
@@ -55,6 +51,7 @@
                   </div>
                 <% end %>
                   <%= f.hidden_field :user_id, :value => user.id %>
+                  <%= f.hidden_field :year, :value => params[:year] %>
                   <%= f.hidden_field :month, :value => params[:month] %>
                   <%= f.input_field :amount, :class => "form-control input-sm" %>
                 </td>
@@ -64,12 +61,9 @@
               <% end %>
             </td>
             <% else %>
-            <td><%= currency(seller_budget(user, params[:month])) %></td>
-            <td>
-              <div class="btn-group btn-group-xs">
-                <%= link_to "Edit", edit_budget_path(seller_budget_id(user, params[:month])), :class => "btn btn-warning btn-xs" %>
-                  <a href="#" class="btn btn-danger btn-xs">Delete</a>
-                </div>
+              <td><%= currency(seller_budget(user, params[:month], params[:year])) %></td>
+              <td>
+                <%= link_to 'Delete', budget_path(seller_budget_id(user, params[:month], params[:year])), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-xs" %>
               </td>
             <% end %>
           </tr>
@@ -95,7 +89,7 @@
           <% @offices.each do |office| %>
           <tr>
             <td><%= link_to office.name, office_path(office) %></td>
-            <td><%= currency(office_month_budget(office, params[:month])) %></td>
+            <td><%= currency(office_month_budget(office, params[:month], params[:year])) %></td>
           </tr>
           <% end %>
         </tbody>

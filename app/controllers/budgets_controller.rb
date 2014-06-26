@@ -2,29 +2,6 @@ class BudgetsController < ApplicationController
   before_action :require_user
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
 
-  # GET /budgets
-  # GET /budgets.json
-  def index
-    @budgets = Budget.all
-    @budget = Budget.new
-    @users = User.all.order("office_id ASC")
-    @offices = Office.all
-  end
-
-  # GET /budgets/1
-  # GET /budgets/1.json
-  def show
-  end
-
-  # GET /budgets/new
-  def new
-    @budget = Budget.new
-  end
-
-  # GET /budgets/1/edit
-  def edit
-  end
-
   # POST /budgets
   # POST /budgets.json
   def create
@@ -35,7 +12,7 @@ class BudgetsController < ApplicationController
         format.html { redirect_to :back, notice: 'Budget was successfully created.' }
         format.json { render :show, status: :created, location: @budget }
       else
-        format.html { render :new }
+        format.html { render :back }
         format.json { render json: @budget.errors, status: :unprocessable_entity }
       end
     end
@@ -46,7 +23,7 @@ class BudgetsController < ApplicationController
   def update
     respond_to do |format|
       if @budget.update(budget_params)
-        format.html { redirect_to @budget, notice: 'Budget was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Budget was successfully updated.' }
         format.json { render :show, status: :ok, location: @budget }
       else
         format.html { render :edit }
@@ -60,7 +37,7 @@ class BudgetsController < ApplicationController
   def destroy
     @budget.destroy
     respond_to do |format|
-      format.html { redirect_to budgets_url, notice: 'Budget was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Budget was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -73,6 +50,6 @@ class BudgetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def budget_params
-      params.require(:budget).permit(:user_id, :month, :amount)
+      params.require(:budget).permit(:user_id, :year, :month, :amount)
     end
 end
