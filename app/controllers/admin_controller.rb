@@ -1,9 +1,6 @@
 class AdminController < ApplicationController
   before_action :require_user
 
-  def index
-  end
-
   def users
     @users = User.all
     @user = User.new
@@ -22,7 +19,12 @@ class AdminController < ApplicationController
   end
 
   def offices
-    
+    @offices = Office.all
+    @office = Office.new
+
+    if params[:office_id]
+      @office_now = Office.find(params[:office_id])
+    end
   end
 
   def sales

@@ -9,14 +9,10 @@
       <% end %>
     </div>
     <%= form_tag(admin_budgets_path, :method => "get", id: "search-form") do %>
-      <div class="col-md-2">
-        <%= select_tag :month, options_for_select(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ], (params[:month] or Time.now.strftime("%B"))), :class => 'form-control' %>
-      </div>
-      <div class="col-md-1">
-        <%= select_tag :year, options_for_select([Time.now.strftime("%Y"), (Time.now + 34164000).strftime("%Y")], (params[:year] or Time.now.strftime("%Y"))), :class => 'form-control' %>
-      </div>
-      <div class="col-md-1">
-        <%= submit_tag "Filter", :class => "btn btn-default" %>
+      <div class="col-md-4">
+        <%= select_tag :month, options_for_select(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ], (params[:month] or Time.now.strftime("%B"))), :class => 'form-control input-sm date-control' %>
+        <%= select_tag :year, options_for_select([Time.now.strftime("%Y"), (Time.now + 34164000).strftime("%Y")], (params[:year] or Time.now.strftime("%Y"))), :class => 'form-control input-sm date-control ' %>
+        <%= submit_tag "Filter", :class => "btn btn-default btn-sm date-control " %>
       </div>
     <% end %>
   </div>

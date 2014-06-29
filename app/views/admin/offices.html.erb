@@ -1,1 +1,135 @@
 <%= render 'menu' %>
+<div class="row">
+  <div class="col-md-5">
+    <div class="list-group">
+      <% @offices.each do |office| %>
+        <a href="<%= admin_office_url(office) %>" class="list-group-item <%= currentpath(admin_office_path(office)) %>"><%= office.name %></a>
+      <% end %>
+    </div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#newOffice">
+      New office
+    </button>
+  </div>
+  <div class="col-md-7">
+    <% if @office_now %>
+
+      <h3><%= @office_now.name %></h3>
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>ID</th>
+          <td><%= @office_now.id %></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td><%= @office_now.name %></td>
+        </tr>
+        <tr>
+          <th>Currency</th>
+          <td><%= @office_now.currency %></td>
+        </tr>
+        <tr>
+          <th>Sellers</th>
+          <td>41</td>
+        </tr>
+      </table>
+      <button class="btn btn-warning" data-toggle="modal" data-target="#editOffice">
+        Edit office
+      </button>
+    <% end %>
+  </div>
+</div>
+
+<% if @office_now %>
+<div class="modal fade" id="editOffice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit <%= @office_now.name %></h4>
+      </div>
+      <div class="modal-body">
+
+        <%= simple_form_for(@office_now, :html => { :multipart => true, :class => "form-horizontal" }) do |f| %>
+          <% if @office_now.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@office_now.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+              <ul>
+              <% @office_now.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+            <div class="form-group">
+              <%= f.label :name, :class => "col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.input_field :name, :class => "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :currency, :class => "col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.input_field :currency, :class => "form-control" %>
+              </div>
+            </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit "Submit", :class => "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+<div class="modal fade" id="newOffice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">New office</h4>
+      </div>
+      <div class="modal-body">
+
+        <%= simple_form_for(@office, :html => { :multipart => true, :class => "form-horizontal" }) do |f| %>
+          <% if @office.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@office.errors.count, "error") %> prohibited this office from being saved:</h2>
+
+              <ul>
+              <% @office.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+            <div class="form-group">
+              <%= f.label :name, :class => "col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.input_field :name, :class => "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :currency, :class => "col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.input_field :currency, :class => "form-control" %>
+              </div>
+            </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit "Submit", :class => "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

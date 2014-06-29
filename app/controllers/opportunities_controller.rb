@@ -8,6 +8,10 @@ class OpportunitiesController < ApplicationController
     @opportunities = Opportunity.all
     @user_opportunities = current_user.opportunities.all.all.order("closing_date DESC")
     @opportunity = current_user.opportunities.new
+
+    if params[:opportunity_id]
+      @opportunity_now = Opportunity.find(params[:opportunity_id])
+    end
   end
 
   # GET /opportunities/1

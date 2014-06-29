@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   delete "/logout" => "user_sessions#destroy", as: :logout
 
   # Admin routes
+  get 'admin/offices/(:office_id)', to: 'admin#offices', as: 'admin_office'
   get 'admin/offices', to: 'admin#offices'
   get 'admin/sales', to: 'admin#sales'
   get 'admin/pipelines', to: 'admin#pipelines'
   get 'admin/budgets', to: 'admin#budgets'
   get 'admin/users/(:user_id)', to: 'admin#users', as: 'admin_user'
   get 'admin/users', to: 'admin#users'
+  get 'opportunities/edit/(:opportunity_id)', to: 'opportunities#index', as: 'opportunity_edit'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -29,7 +31,6 @@ Rails.application.routes.draw do
   resources :offices
   resources :budgets
   resources :clients
-  resources :admin
   resources :user_sessions, only: [:new, :create]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
