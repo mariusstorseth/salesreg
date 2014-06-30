@@ -2,8 +2,6 @@ class BudgetsController < ApplicationController
   before_action :require_user
   before_action :set_budget, only: [:show, :edit, :update, :destroy]
 
-  # POST /budgets
-  # POST /budgets.json
   def create
     @budget = Budget.new(budget_params)
 
@@ -18,8 +16,6 @@ class BudgetsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /budgets/1
-  # PATCH/PUT /budgets/1.json
   def update
     respond_to do |format|
       if @budget.update(budget_params)
@@ -32,8 +28,6 @@ class BudgetsController < ApplicationController
     end
   end
 
-  # DELETE /budgets/1
-  # DELETE /budgets/1.json
   def destroy
     @budget.destroy
     respond_to do |format|
@@ -43,12 +37,10 @@ class BudgetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_budget
       @budget = Budget.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def budget_params
       params.require(:budget).permit(:user_id, :year, :month, :amount)
     end
