@@ -2,30 +2,17 @@ class SalesController < ApplicationController
   before_action :require_user
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
-  # GET /sales
-  # GET /sales.json
+  helper_method :sort_column, :sort_direction
+
   def index
     @sales = Sale.all
-    @user_sales = current_user.sales.all.order("created_at DESC")
+    @user_sales = Sale.search(params[:client], params[:date_from], params[:date_to]).order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 10)
     @sale = current_user.sales.new
   end
 
-  # GET /sales/1
-  # GET /sales/1.json
   def show
   end
 
-  # GET /sales/new
-  def new
-    @sale = Sale.new
-  end
-
-  # GET /sales/1/edit
-  def edit
-  end
-
-  # POST /sales
-  # POST /sales.json
   def create
     @sale = current_user.sales.new(sale_params)
 
@@ -40,8 +27,6 @@ class SalesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sales/1
-  # PATCH/PUT /sales/1.json
   def update
     respond_to do |format|
       if @sale.update(sale_params)
@@ -54,8 +39,6 @@ class SalesController < ApplicationController
     end
   end
 
-  # DELETE /sales/1
-  # DELETE /sales/1.json
   def destroy
     @sale.destroy
     respond_to do |format|
@@ -65,12 +48,19 @@ class SalesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    def sort_column
+      Sale.joins(:clients).column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
     def set_sale
       @sale = Sale.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
       params.require(:sale).permit(:user_id, :client_id, :software, :semi, :production, 
                                     :ads, :other, :description, :file, :state)

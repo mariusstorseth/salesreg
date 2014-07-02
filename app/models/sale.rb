@@ -13,6 +13,17 @@ class Sale < ActiveRecord::Base
   has_attached_file :file, styles: {thumbnail: "60x60#"}
   validates_attachment :file, content_type: { content_type: "application/pdf" }
 
+  def self.search(client, date_from, date_to)
+    date_from = '1992-02-19' if date_from == ''
+    date_to = Time.now if date_to == ''
+
+    if client && date_from && date_to
+      Sale.joins(:client).where('clients.name LIKE ? and sales.created_at > ? and sales.created_at < ?', "%#{client}%", date_from.to_date.beginning_of_day, date_to.to_date.end_of_day)
+    else
+      all
+    end
+  end
+
   def calculate_coverage_ratios!
     self.software_rate ||= 80
     self.semi_rate ||= 70

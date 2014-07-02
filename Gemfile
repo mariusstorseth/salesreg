@@ -48,4 +48,9 @@ gem 'jazz_hands'
 
 gem 'simple_form'
 
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
+
+gem 'jquery-ui-rails'
+
 gem "paperclip", "~> 4.1"
